@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Form from 'react-bootstrap/Form';
 
+// Selector component
 function Selector({ setSearchTerm }) {
   const options = ['Select', 'test2.csv', 'test3.csv', 'test9.csv'];
 
@@ -12,6 +13,7 @@ function Selector({ setSearchTerm }) {
         size="sm"
         onChange={(e) => setSearchTerm(e.target.value)}
       >
+        {/* Iterate each valid option to filter on the Table */}
         {options.map((opt) => (
           <option key={opt}>{opt}</option>
         ))}
@@ -20,6 +22,7 @@ function Selector({ setSearchTerm }) {
   );
 }
 
+// This function gets dispatched  when the searchTerm state is applied
 const mapDispatchToProps = (dispatch) => ({
   setSearchTerm: (searchTerm) => dispatch({ type: 'SET_SEARCH_TERM', payload: searchTerm }),
 });

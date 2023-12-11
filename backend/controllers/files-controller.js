@@ -6,13 +6,15 @@ const getFilesFormatted = async (req = request, res = response) => {
   const { fileName } = req.query;
   
   try {
-    const response = await getFilesName();      // Get toolbox files from external api
+    // Get toolbox files from external api
+    const response = await getFilesName();      
     const files = fileName !== undefined ? [fileName] : response?.data?.files;
     let data = []
-    // If files exists
+    // If files exists, then start formatting the output
     if(files){
       const promises = files.map(file => getFileInfoByName(file).then((fileInfo) => {
         if(fileInfo.data.status !== 500){
+          // Lets validate the incoming data from each file coming from external api
           const validation = validateAndFormatFile(fileInfo.data, file);
           if(validation.length > 0){
             // If a file info is correct, proceed to format the output

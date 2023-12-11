@@ -7,7 +7,11 @@ import TableComponent from './components/Table';
 
 function App() {
 
+  // This state is in charge of getting the option selected
+  // by the Selector component
   const [searchTerm, setSearchTerm] = useState('');
+  
+  // Fetch of the Files API
   const getData = async(searchTerm) => {
     const fileName = (!searchTerm || searchTerm == 'Select') ? null : searchTerm;
     return await axios({

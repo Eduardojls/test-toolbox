@@ -4,6 +4,9 @@ import Table from "react-bootstrap/Table";
 import Selector from "./Selector";
 
 function TableComponent({ searchTerm, responseInfo, getData, setSearchTerm, setResponseInfo }) {
+
+  // This effect gets fired everytime the selector has changed an option
+  // So that, we can set that value to the state and fetch the api 
   useEffect(() => {
     getData(searchTerm).then((response) => {
       setResponseInfo(response);
@@ -12,7 +15,10 @@ function TableComponent({ searchTerm, responseInfo, getData, setSearchTerm, setR
 
   return (
     <>
+      {/* Selector component */}
       <Selector setSearchTerm={setSearchTerm} />
+
+      {/* Bootstrap Table */}
       <Table striped bordered hover size="l" className="table-sm">
         <thead>
           <tr>
@@ -23,6 +29,7 @@ function TableComponent({ searchTerm, responseInfo, getData, setSearchTerm, setR
           </tr>
         </thead>
         <tbody>
+          {/* If responseInfo validations are corrects, we iterate each table row */}
           {responseInfo.status === 200 &&
             responseInfo.data.length > 0 &&
             responseInfo.data.map((row) => {
@@ -41,11 +48,13 @@ function TableComponent({ searchTerm, responseInfo, getData, setSearchTerm, setR
   );
 }
 
+// This function keeps my table state updated 
 const mapStateToProps = (state) => ({
   searchTerm: state.searchTerm,
   responseInfo: state.responseInfo,
 });
 
+// This function fires an action event, that may cause a change state
 const mapDispatchToProps = (dispatch) => ({
   setSearchTerm: (searchTerm) => dispatch({ type: 'SET_SEARCH_TERM', payload: searchTerm }),
   setResponseInfo: (responseInfo) => dispatch({ type: 'SET_RESPONSE_INFO', payload: responseInfo }),

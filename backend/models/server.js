@@ -15,16 +15,20 @@ class Server {
     this.routes();
   }
 
+  // Function to validate incoming requests
   middlewares() {
     this.app.use(cors());
+    // allow request to accept a body
     this.app.use(express.json());
     this.app.use(express.static("public"));
   }
 
   routes() {
+    // This is the path to the Files API
     this.app.use(this.paths.files, require("../routes/files-routes"));
   }
 
+  // Server will run under PORT 8081
   listen() {
     this.app.listen(this.port, (req, res) => {
       console.log("Server running on port " + this.port);

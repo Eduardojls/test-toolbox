@@ -1,6 +1,6 @@
 const axios = require('axios');
 
-// Get a list of files
+// Get a list of files from  Toolbox External api
 const getFilesName = async () => {
   const response = await axios('https://echo-serv.tbxnet.com/v1/secret/files',{
     method: 'GET',
@@ -11,7 +11,7 @@ const getFilesName = async () => {
   return response
 };
 
-// Get a file information by name
+// Get a file information by name from  Toolbox External api
 const getFileInfoByName = async (fileName) => {
   const response = await axios('https://echo-serv.tbxnet.com/v1/secret/file/' + fileName,{
     method: 'GET',
